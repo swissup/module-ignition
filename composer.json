@@ -1,0 +1,19 @@
+{
+    "name": "swissup/module-ignition",
+    "description": "A beautiful error page and error tracking service for Magento",
+    "type": "magento2-module",
+    "version": "1.0.0",
+    "license": "MIT",
+    "require": {
+        "php": "^8.0",
+        "spatie/ignition": "^1.13"
+    },
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Swissup\\Ignition\\": ""
+        }
+    }
+}
