@@ -1,4 +1,4 @@
-# Ignition for Magento 2
+# Ignition for Magento2
 
 A beautiful error page and error tracking service for Magento
 powered by [spatie/ignition](https://github.com/spatie/ignition).
@@ -12,5 +12,5 @@ powered by [spatie/ignition](https://github.com/spatie/ignition).
 
 ```bash
 composer require swissup/module-ignition
-bin/magento setup:upgrade --safe-mode=1
+bin/magento module:enable Swissup_Ignition
 ```
