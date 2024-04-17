@@ -24,10 +24,29 @@ class Report extends FlareReport
      */
     protected function stracktraceAsArray(): array
     {
-        return array_map(function ($frame) {
+        $result = [];
+        $applicationFrames = [];
+
+        foreach (parent::stracktraceAsArray() as $frame) {
             $frame['application_frame'] = $this->isApplicationFrame($frame);
-            return $frame;
-        }, parent::stracktraceAsArray());
+
+            if ($frame['application_frame']) {
+                $applicationFrames[] = $frame;
+            }
+
+            $result[] = $frame;
+        }
+
+        if (count($applicationFrames) === 1 &&
+            $this->isAroundLaunchPluginFrame($applicationFrames[0])
+        ) {
+            $result = array_map(function ($frame) {
+                $frame['application_frame'] = !$this->isGeneratedCodeFrame($frame);
+                return $frame;
+            }, $result);
+        }
+
+        return $result;
     }
 
     /**
@@ -40,7 +59,6 @@ class Report extends FlareReport
     {
         $vendorPaths = [
             '/app/code/Magento/',
-            '/generated/code/',
             '/lib/internal/',
             '/vendor/magento/',
             '/index.php',
@@ -52,6 +70,22 @@ class Report extends FlareReport
             }
         }
 
+        if ($this->isGeneratedCodeFrame($frame)) {
+            return false;
+        }
+
         return true;
+    }
+
+    private function isGeneratedCodeFrame(array $frame): bool
+    {
+        return str_contains($frame['file'], '/generated/code/');
+    }
+
+    private function isAroundLaunchPluginFrame(array $frame): bool
+    {
+        return $frame['method'] === 'aroundLaunch'
+            && str_contains($frame['file'], 'Plugin')
+            && str_contains($frame['code_snippet'][$frame['line_number']], '$proceed()');
     }
 }
