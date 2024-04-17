@@ -43,6 +43,7 @@ class Report extends FlareReport
             '/generated/code/',
             '/lib/internal/',
             '/vendor/magento/',
+            '/index.php',
         ];
 
         foreach ($vendorPaths as $path) {
