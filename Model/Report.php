@@ -46,7 +46,7 @@ class Report extends FlareReport
         ];
 
         foreach ($vendorPaths as $path) {
-            if (strpos($frame['file'], $path) !== false) {
+            if (str_contains($frame['file'], $path)) {
                 return false;
             }
         }
