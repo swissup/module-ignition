@@ -11,20 +11,11 @@ use Spatie\Ignition\Config\IgnitionConfig;
 
 class Save implements HttpPostActionInterface
 {
-    private RequestInterface $request;
-
-    private JsonResultFactory $resultFactory;
-
-    private JsonSerializer $serializer;
-
     public function __construct(
-        RequestInterface $request,
-        JsonResultFactory $resultFactory,
-        JsonSerializer $serializer
+        private RequestInterface $request,
+        private JsonResultFactory $resultFactory,
+        private JsonSerializer $serializer
     ) {
-        $this->request = $request;
-        $this->resultFactory = $resultFactory;
-        $this->serializer = $serializer;
     }
 
     public function execute()
