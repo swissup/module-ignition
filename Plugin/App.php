@@ -45,6 +45,6 @@ class App
             ->setBody(ob_get_clean())
             ->sendResponse();
 
-        exit(1);
+        exit(1); // phpcs:ignore
     }
 }
