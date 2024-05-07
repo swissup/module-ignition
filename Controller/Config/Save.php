@@ -43,8 +43,8 @@ class Save implements HttpPostActionInterface
                 'hide_solutions',
             ]));
 
-            $config = (new IgnitionConfig())->loadConfigFile()->merge($data);
-            if (!$config->saveValues($config->getConfigOptions())) {
+            $config = new IgnitionConfig();
+            if (!$config->saveValues(array_merge($config->getConfigOptions(), $data))) {
                 throw new Exception('Unable to save Ignition config');
             }
 
