@@ -42,8 +42,13 @@ class Save implements HttpPostActionInterface
                 'theme',
                 'hide_solutions',
             ]));
-            $result = (new IgnitionConfig())->saveValues($data);
-            $response->setData($result);
+
+            $config = (new IgnitionConfig())->loadConfigFile()->merge($data);
+            if (!$config->saveValues($config->getConfigOptions())) {
+                throw new Exception('Unable to save Ignition config');
+            }
+
+            $response->setData(true);
         } catch (Exception $e) {
             $response->setHttpResponseCode(400)->setData(['error' => $e->getMessage()]);
         }
