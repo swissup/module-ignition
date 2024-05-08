@@ -7,7 +7,7 @@ define([
     $(document).on('ajaxError', async function (e, obj) {
         var iframe;
 
-        if (!obj.responseText.includes('Ignition')) {
+        if (!obj.responseText.includes('window.ignite(window.data)')) {
             return;
         }
 
