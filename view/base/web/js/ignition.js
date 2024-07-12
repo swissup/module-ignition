@@ -19,8 +19,13 @@ define([
             .closest('.modal-inner-wrap')
             .css({
                 maxWidth: '1600px',
+                maxHeight: 'none',
                 width: '100%',
                 height: '95%'
+            })
+            .closest('.modal-ignition')
+            .css({
+                zIndex: 999999
             });
 
         // do not use "srcdoc" or "src" for working anchor links
