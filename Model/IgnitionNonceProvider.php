@@ -3,6 +3,7 @@
 namespace Swissup\Ignition\Model;
 
 use Magento\Csp\Helper\CspNonceProvider;
+use Magento\Framework\App\ObjectManager;
 use Magento\Framework\App\RequestInterface;
 use Magento\Framework\Session\SessionManagerInterface;
 
