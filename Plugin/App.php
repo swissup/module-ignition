@@ -7,6 +7,7 @@ use Magento\Framework\App\Http as AppHttp;
 use Magento\Framework\App\Response\Http as ResponseHttp;
 use Swissup\Ignition\Model\Ignition;
 use Swissup\Ignition\Model\IgnitionFactory;
+use Swissup\Ignition\Model\IgnitionNonceProvider;
 use Throwable;
 
 class App
@@ -15,7 +16,8 @@ class App
 
     public function __construct(
         private ResponseHttp $response,
-        private IgnitionFactory $ignitionFactory
+        private IgnitionFactory $ignitionFactory,
+        private IgnitionNonceProvider $nonceProvider
     ) {
     }
 
@@ -40,9 +42,17 @@ class App
     private function handleThrowable(Throwable $exception)
     {
         ob_start();
+
         $this->ignition->handleException($exception);
+
+        $html = str_replace(
+            '<script>',
+            "<script nonce='{$this->nonceProvider->generateNonce()}'>",
+            ob_get_clean()
+        );
+
         $this->response->setHttpResponseCode(500)
-            ->setBody(ob_get_clean())
+            ->setBody($html)
             ->sendResponse();
 
         exit(1); // phpcs:ignore

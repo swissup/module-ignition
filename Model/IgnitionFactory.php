@@ -12,7 +12,6 @@ class IgnitionFactory
     public function __construct(
         private State $state,
         private ScopeConfigInterface $config,
-        private IgnitionNonceProvider $nonceProvider,
         private array $solutionProviders = []
     ) {
     }
@@ -22,7 +21,6 @@ class IgnitionFactory
         $flareApiKey = $this->config->getValue('swissup_ignition/general/api_key', ScopeInterface::SCOPE_WEBSITE);
 
         return (new Ignition())
-            ->nonceProvider($this->nonceProvider)
             ->applicationPath(BP)
             ->sendToFlare($flareApiKey)
             ->addSolutionProviders($this->solutionProviders)
