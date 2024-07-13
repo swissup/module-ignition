@@ -4,6 +4,10 @@
     <type name="Magento\Framework\App\Http">
         <plugin name="swissupIgnition" type="Swissup\Ignition\Plugin\App" />
     </type>
+    <!-- Save nonce in session, to use in popup in case of error during ajax request -->
+    <type name="Magento\Csp\Helper\CspNonceProvider">
+        <plugin name="swissupIgnition" type="Swissup\Ignition\Plugin\CspNonceProvider" />
+    </type>
     <type name="Swissup\Ignition\Model\IgnitionFactory">
         <arguments>
             <argument name="solutionProviders" xsi:type="array">
@@ -12,6 +16,11 @@
                 <item name="DbColumnNotFoundSolutionProvider" xsi:type="object">Swissup\Ignition\Solutions\SolutionProviders\DbColumnNotFoundSolutionProvider</item>
                 <item name="DbTableNotFoundSolutionProvider" xsi:type="object">Swissup\Ignition\Solutions\SolutionProviders\DbTableNotFoundSolutionProvider</item>
             </argument>
+        </arguments>
+    </type>
+    <type name="Swissup\Ignition\Model\IgnitionNonceProvider">
+        <arguments>
+            <argument name="session" xsi:type="object">Magento\Customer\Model\Session\Proxy</argument>
         </arguments>
     </type>
 </config>
