@@ -15,6 +15,7 @@
                 <item name="ConstructorArgumentExceptionSolutionProvider" xsi:type="object">Swissup\Ignition\Solutions\SolutionProviders\ConstructorArgumentExceptionSolutionProvider</item>
                 <item name="DbColumnNotFoundSolutionProvider" xsi:type="object">Swissup\Ignition\Solutions\SolutionProviders\DbColumnNotFoundSolutionProvider</item>
                 <item name="DbTableNotFoundSolutionProvider" xsi:type="object">Swissup\Ignition\Solutions\SolutionProviders\DbTableNotFoundSolutionProvider</item>
+                <item name="TypeDefinitionIsAbstractSolutionProvider" xsi:type="object">Swissup\Ignition\Solutions\SolutionProviders\TypeDefinitionIsAbstractSolutionProvider</item>
             </argument>
         </arguments>
     </type>
