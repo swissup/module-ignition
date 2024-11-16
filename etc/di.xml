@@ -17,6 +17,7 @@
                 <item name="DbTableNotFoundSolutionProvider" xsi:type="object">Swissup\Ignition\Solutions\SolutionProviders\DbTableNotFoundSolutionProvider</item>
                 <item name="UpgradeYourDatabaseSolutionProvider" xsi:type="object">Swissup\Ignition\Solutions\SolutionProviders\UpgradeYourDatabaseSolutionProvider</item>
                 <item name="TypeDefinitionIsAbstractSolutionProvider" xsi:type="object">Swissup\Ignition\Solutions\SolutionProviders\TypeDefinitionIsAbstractSolutionProvider</item>
+                <item name="XmlValidationErrorSolutionProvider" xsi:type="object">Swissup\Ignition\Solutions\SolutionProviders\XmlValidationErrorSolutionProvider</item>
             </argument>
         </arguments>
     </type>
