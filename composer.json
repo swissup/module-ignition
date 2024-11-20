@@ -2,7 +2,7 @@
     "name": "swissup/module-ignition",
     "description": "A beautiful error page and error tracking service for Magento",
     "type": "magento2-module",
-    "version": "1.1.4",
+    "version": "1.1.5",
     "license": "MIT",
     "require": {
         "php": "^8.0",
