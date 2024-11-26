@@ -54,6 +54,8 @@ class XmlValidationErrorSolutionProvider implements HasSolutionsForThrowable
                 BaseSolution::create('XML validation error')->setSolutionDescription($solution),
             ];
         }
+
+        return [];
     }
 
     private function createSolutionFromTheXmlInFileError(array $matches)
