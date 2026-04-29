@@ -55,6 +55,10 @@ class Report extends FlareReport
      */
     private function isApplicationFrame(array $frame): bool
     {
+        if ($frame['file'] === 'unknown') {
+            return false;
+        }
+
         $vendorPaths = [
             '/app/code/Magento/',
             '/lib/internal/',
