@@ -24,6 +24,6 @@ class IgnitionFactory
             ->applicationPath(BP)
             ->sendToFlare($flareApiKey)
             ->addSolutionProviders($this->solutionProviders)
-            ->runningInProductionEnvironment($this->state->getMode() === State::MODE_PRODUCTION);
+            ->runningInProductionEnvironment($this->state->getMode() !== State::MODE_DEVELOPER);
     }
 }
