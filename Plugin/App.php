@@ -31,10 +31,6 @@ class App
             // Can't rely on Magento's app->catchException in Magento/Framework/App/Bootstrap::run
             // because it doesn't handle Throwable types.
             $this->handleThrowable($e);
-
-            // this code is reachable only when ignition doesn't
-            // generate the response (Production mode)
-            throw $e;
         }
     }
 
@@ -56,7 +52,7 @@ class App
         );
 
         if (!$html) {
-            return;
+            throw $exception;
         }
 
         $this->response->setHttpResponseCode(500)
