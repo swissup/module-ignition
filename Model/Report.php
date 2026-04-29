@@ -58,6 +58,7 @@ class Report extends FlareReport
         $vendorPaths = [
             '/app/code/Magento/',
             '/lib/internal/',
+            '/vendor/composer/',
             '/vendor/magento/',
             '/index.php',
         ];
