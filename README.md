@@ -15,6 +15,30 @@ composer require swissup/module-ignition
 bin/magento module:enable Swissup_Ignition
 ```
 
+## Configuration
+
+This module will show the error page with detailed information
+about the error and stack trace only in developer mode:
+
+```
+bin/magento deploy:mode:set developer
+```
+
+You can also use it in production mode to log the errors using [Flare](https://flareapp.io/)
+error tracking service. To do so, add this section to the `env.php` file:
+
+```php
+'system' => [
+    'default' => [
+        'swissup_ignition' => [
+            'general' => [
+                'api_key' => 'API_KEY'
+            ]
+        ]
+    ]
+],
+```
+
 ## Docker
 
 When using Ignition with Docker the `Open in Editor` links will show incorrect paths.
