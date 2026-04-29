@@ -31,6 +31,10 @@ class App
             // Can't rely on Magento's app->catchException in Magento/Framework/App/Bootstrap::run
             // because it doesn't handle Throwable types.
             $this->handleThrowable($e);
+
+            // this code is reachable only when ignition doesn't
+            // generate the response (Production mode)
+            throw $e;
         }
     }
 
@@ -50,6 +54,10 @@ class App
             "<script nonce='{$this->nonceProvider->generateNonce()}'>",
             ob_get_clean()
         );
+
+        if (!$html) {
+            return;
+        }
 
         $this->response->setHttpResponseCode(500)
             ->setBody($html)
