@@ -42,9 +42,14 @@ class Report extends FlareReport
             $result[] = $frame;
         }
 
+        // If all application_frames are skippable (around plugins at $proceed call)
+        // then don't callapse everything, but only /generated/ and __callPlugins
         if (!array_filter($applicationFrames, fn ($frame) => !$this->isSkippableFrame($frame))) {
             $result = array_map(function ($frame) {
-                $frame['application_frame'] = !$this->isGeneratedCodeFrame($frame);
+                $frame['application_frame'] =
+                    !$this->isGeneratedCodeFrame($frame) &&
+                    !$this->isInterceptorCall($frame);
+
                 return $frame;
             }, $result);
         }
@@ -98,5 +103,12 @@ class Report extends FlareReport
     {
         return str_starts_with($frame['method'], 'around')
             && str_contains($frame['code_snippet'][$frame['line_number']], '$proceed(');
+    }
+
+    private function isInterceptorCall(array $frame): bool
+    {
+        return str_ends_with($frame['file'], 'Magento/Framework/Interception/Interceptor.php')
+            && (str_contains($frame['method'], '___callPlugins')
+                || str_contains($frame['method'], '___callParent'));
     }
 }
