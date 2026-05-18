@@ -27,7 +27,12 @@ class Report extends FlareReport
         $result = [];
         $applicationFrames = [];
 
-        foreach (parent::stracktraceAsArray() as $frame) {
+        $parentResult = parent::stracktraceAsArray();
+        if ($parentResult) {
+            $parentResult[array_key_last($parentResult)]['last'] = true;
+        }
+
+        foreach ($parentResult as $frame) {
             $frame['application_frame'] = $this->isApplicationFrame($frame);
 
             if ($frame['application_frame']) {
@@ -56,6 +61,10 @@ class Report extends FlareReport
     private function isApplicationFrame(array $frame): bool
     {
         if ($frame['file'] === 'unknown') {
+            return false;
+        }
+
+        if (!empty($frame['last']) && str_starts_with($frame['file'], '/')) {
             return false;
         }
 
