@@ -12,7 +12,7 @@ class Js extends Template
 
     public function getTemplate()
     {
-        if ($this->_appState->getMode() !== State::MODE_DEVELOPER ||
+        if ($this->_appState->getMode() === State::MODE_DEVELOPER ||
             !$this->isJsReportingEnabled() ||
             !$this->getProjectKey()
         ) {
