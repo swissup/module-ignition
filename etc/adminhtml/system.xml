@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="dev">
+            <group id="swissup_ignition" translate="label" type="text" sortOrder="21" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Ignition</label>
+                <field id="api_key" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Project Key</label>
+                    <comment>Project key is required to enable PHP and JS error reporting to https://flareapp.io/</comment>
+                    <config_path>swissup_ignition/general/api_key</config_path>
+                </field>
+                <field id="enable_js_reporting" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enable JS error reporting</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <config_path>swissup_ignition/general/enable_js_reporting</config_path>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>
