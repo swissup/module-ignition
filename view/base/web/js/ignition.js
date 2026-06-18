@@ -49,11 +49,11 @@ define([
         iframe[0].contentDocument.close();
     }
 
-    $(document).on('ajaxError', async function (e, obj) {
-        if (!obj.responseText?.includes('window.ignite(window.data)')) {
-            return;
-        }
-
-        require(['Magento_Ui/js/modal/modal'], () => openModal(obj.responseText));
+    $.ajaxPrefilter && $.ajaxPrefilter((options, originalOptions, jqXHR) => {
+        jqXHR.fail(xhr => {
+            if (xhr.responseText?.includes('window.ignite(window.data)')) {
+                require(['Magento_Ui/js/modal/modal'], () => openModal(xhr.responseText));
+            }
+        });
     });
 });
