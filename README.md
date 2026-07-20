@@ -24,6 +24,41 @@ about the error and stack trace only in developer mode:
 bin/magento deploy:mode:set developer
 ```
 
+## Copying the error
+
+The error page shows two buttons in the bottom-right corner:
+
+* **Copy stack trace** – copies a PHP-style stack trace (exception class, message
+  and frames), ready to paste into a search engine or an AI assistant.
+* **Copy message** – copies just the exception message.
+
+Pressing <kbd>Cmd</kbd>/<kbd>Ctrl</kbd> + <kbd>C</kbd> anywhere on the page copies
+the full stack trace as well. If you have selected some text yourself, the normal
+copy behaviour is used instead.
+
+### Reading the error from automation
+
+When the page is driven by a browser-automation agent (Playwright, Puppeteer, …),
+the same text is available without going through the clipboard.
+
+A `window.swissupIgnition` object is exposed:
+
+```js
+window.swissupIgnition.stackTrace; // full PHP-style stack trace (string)
+window.swissupIgnition.message;    // exception message (string)
+window.swissupIgnition.report;     // the underlying Ignition report (object)
+window.swissupIgnition.copyStackTrace(); // returns a Promise, copies to clipboard
+window.swissupIgnition.copyMessage();
+```
+
+The same strings are mirrored into hidden DOM nodes with stable ids, so they can be
+read with a locator without evaluating JavaScript:
+
+```js
+await page.locator('#swissup-ignition-stacktrace').textContent();
+await page.locator('#swissup-ignition-message').textContent();
+```
+
 ## Using in production mode
 
 You can also use it in production mode to log the errors using [Flare](https://flareapp.io/)
