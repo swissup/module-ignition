@@ -12,6 +12,7 @@ class IgnitionFactory
     public function __construct(
         private State $state,
         private ScopeConfigInterface $config,
+        private ErrorPageScript $errorPageScript,
         private array $solutionProviders = []
     ) {
     }
@@ -24,6 +25,7 @@ class IgnitionFactory
             ->applicationPath(BP)
             ->sendToFlare($flareApiKey)
             ->addSolutionProviders($this->solutionProviders)
+            ->addCustomHtmlToBody($this->errorPageScript->getHtml())
             ->runningInProductionEnvironment($this->state->getMode() !== State::MODE_DEVELOPER);
     }
 }
