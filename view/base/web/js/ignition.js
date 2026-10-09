@@ -51,7 +51,9 @@ define([
 
     $.ajaxPrefilter && $.ajaxPrefilter((options, originalOptions, jqXHR) => {
         jqXHR.fail(xhr => {
-            if (xhr.responseText?.includes('window.ignite(window.data)')) {
+            // Header is set by Plugin\App. Don't check the response body: any error
+            // response may contain the marker, e.g. reflected user input.
+            if (xhr?.getResponseHeader('X-Ignition-Error-Page')) {
                 require(['Magento_Ui/js/modal/modal'], () => openModal(xhr.responseText));
             }
         });

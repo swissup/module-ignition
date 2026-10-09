@@ -36,7 +36,9 @@ class App
 
     private function registerErrorHandler()
     {
-        $this->ignition = $this->ignitionFactory->create()->register();
+        // Keep the error level set by Magento (app/bootstrap.php) or the store,
+        // e.g. E_ALL & ~E_DEPRECATED. Without an argument Ignition forces error_reporting(-1).
+        $this->ignition = $this->ignitionFactory->create()->register(error_reporting());
     }
 
     private function handleThrowable(Throwable $exception)
@@ -56,6 +58,7 @@ class App
         }
 
         $this->response->setHttpResponseCode(500)
+            ->setHeader('X-Ignition-Error-Page', '1', true)
             ->setBody($html)
             ->sendResponse();
 
