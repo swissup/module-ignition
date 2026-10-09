@@ -23,6 +23,15 @@ $scriptString = <<<JS
 
 flare.light('{$escaper->escapeJs($block->getProjectKey())}');
 
+// Cookies may contain CSRF and session tokens
+flare.configure({
+    beforeSubmit: (report) => {
+        const cookies = report.attributes?.['http.request.cookies'];
+        Object.keys(cookies || {}).forEach((name) => { cookies[name] = '<CENSORED>'; });
+        return report;
+    }
+});
+
 JS;
 
 if (isset($secureRenderer)) {

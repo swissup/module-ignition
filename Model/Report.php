@@ -12,6 +12,7 @@ class Report extends FlareReport
             ->setApplicationPath($report->getApplicationPath())
             ->throwable($report->getThrowable())
             ->useContext((fn() => $this->context)->call($report))
+            ->userProvidedContext((fn() => $this->userProvidedContext)->call($report))
             ->exceptionClass($report->getExceptionClass())
             ->message($report->getMessage())
             ->stacktrace($report->getStacktrace())
