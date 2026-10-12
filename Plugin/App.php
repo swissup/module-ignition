@@ -30,7 +30,10 @@ class App
         } catch (Throwable $e) {
             // Can't rely on Magento's app->catchException in Magento/Framework/App/Bootstrap::run
             // because it doesn't handle Throwable types.
-            $this->handleThrowable($e);
+            return $this->handleThrowable($e);
+        } finally {
+            restore_error_handler();
+            restore_exception_handler();
         }
     }
 
@@ -59,9 +62,8 @@ class App
 
         $this->response->setHttpResponseCode(500)
             ->setHeader('X-Ignition-Error-Page', '1', true)
-            ->setBody($html)
-            ->sendResponse();
+            ->setBody($html);
 
-        exit(1); // phpcs:ignore
+        return $this->response;
     }
 }
