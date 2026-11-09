@@ -30,4 +30,14 @@ class Js extends Template
     {
         return $this->_scopeConfig->isSetFlag('swissup_ignition/general/enable_js_reporting', ScopeInterface::SCOPE_STORE);
     }
+
+    /**
+     * Kept out of the template: Magento's HTML minifier mangles nowdoc strings
+     */
+    public function getFlareJs()
+    {
+        return $this->_filesystem
+            ->getDirectoryReadByPath(dirname(__DIR__) . '/view/base/web/flare/dist')
+            ->readFile('flareapp.js');
+    }
 }
