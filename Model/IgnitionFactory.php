@@ -2,8 +2,8 @@
 
 namespace Swissup\Ignition\Model;
 
-use Magento\Framework\ObjectManagerInterface;
 use Magento\Framework\App\Config\ScopeConfigInterface;
+use Magento\Framework\App\Filesystem\DirectoryList;
 use Magento\Framework\App\State;
 use Magento\Store\Model\ScopeInterface;
 use Spatie\FlareClient\Flare;
@@ -14,6 +14,7 @@ class IgnitionFactory
         private State $state,
         private ScopeConfigInterface $config,
         private ErrorPageScript $errorPageScript,
+        private DirectoryList $directoryList,
         private array $solutionProviders = []
     ) {
     }
@@ -23,7 +24,7 @@ class IgnitionFactory
         $flareApiKey = $this->config->getValue('swissup_ignition/general/api_key', ScopeInterface::SCOPE_WEBSITE);
         $isProduction = $this->state->getMode() !== State::MODE_DEVELOPER;
         $ignition = (new Ignition())
-            ->applicationPath(BP)
+            ->applicationPath($this->directoryList->getRoot())
             ->sendToFlare($flareApiKey)
             ->addSolutionProviders($this->solutionProviders)
             ->addCustomHtmlToBody($this->errorPageScript->getHtml())
